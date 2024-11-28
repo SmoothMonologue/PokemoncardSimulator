@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemoncard {
+  cardId        Int     @id @default(autoincrement()) @map("cardId")
+  cardName      String  @map("cardName")
+  cardType      String  @map("cardType")
+  cardHP        Int     @map("cardHP")
+  cardCharacter String? @map("cardCharacter")
+  cardMove1     String  @map("cardMove1")
+  cardMove2     String? @map("cardMove2")
+  cardWeak      String? @map("cardWeak")
+  cardCost      String  @map("cardCost")
+
+  @@map("Pokemoncard")
+}
+
+model User {
+  userId   Int    @id @default(autoincrement()) @map("userId")
+  userName String @map("userName")
+  password String @map("password")
+
+  @@map("User")
+}
