@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Pokemoncard {
-  cardId        Int     @id @default(autoincrement()) @map("cardId")
+  cardId        String  @id @map("cardId")
   cardName      String  @map("cardName")
   cardType      String  @map("cardType")
   cardHP        Int     @map("cardHP")
@@ -16,15 +16,25 @@ model Pokemoncard {
   cardMove1     String  @map("cardMove1")
   cardMove2     String? @map("cardMove2")
   cardWeak      String? @map("cardWeak")
-  cardCost      String  @map("cardCost")
+  cardCost      Int     @default(0) @map("cardCost")
 
   @@map("Pokemoncard")
 }
 
 model User {
-  userId   Int    @id @default(autoincrement()) @map("userId")
+  userId   String @id @map("userId")
   userName String @map("userName")
   password String @map("password")
 
   @@map("User")
+}
+
+model CountingCard {
+  log     Int      @id @default(autoincrement()) @map("log")
+  userId  Int      @map("userId")
+  cardId  Int      @map("cardId")
+  count   Int      @map("count")
+  whenGot DateTime @default(now()) @map("whenGot")
+
+  @@map("CountingCard")
 }
