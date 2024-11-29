@@ -18,13 +18,18 @@ model Pokemoncard {
   cardWeak      String? @map("cardWeak")
   cardCost      Int     @default(0) @map("cardCost")
 
+  countingCard CountingCard[]
+
   @@map("Pokemoncard")
 }
 
 model User {
-  userId   String @id @map("userId")
+  userId   Int    @id @default(autoincrement()) @map("userId")
   userName String @map("userName")
+  email    String @unique @map("email")
   password String @map("password")
+
+  countingCard CountingCard[]
 
   @@map("User")
 }
@@ -32,9 +37,12 @@ model User {
 model CountingCard {
   log     Int      @id @default(autoincrement()) @map("log")
   userId  Int      @map("userId")
-  cardId  Int      @map("cardId")
+  cardId  String   @map("cardId")
   count   Int      @map("count")
   whenGot DateTime @default(now()) @map("whenGot")
+
+  user User        @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  card Pokemoncard @relation(fields: [cardId], references: [cardId])
 
   @@map("CountingCard")
 }
